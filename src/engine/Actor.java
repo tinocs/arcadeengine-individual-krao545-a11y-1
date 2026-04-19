@@ -32,7 +32,7 @@ public abstract class Actor extends javafx.scene.image.ImageView {
 		setY(getY() + dy);
 	}
 	
-	public World getWorld() 
+	public World getWorld()
 	{
 		return (World) getParent();
 	}
