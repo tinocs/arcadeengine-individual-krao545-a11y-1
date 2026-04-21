@@ -8,7 +8,9 @@
 package breakout;
 
 import engine.Actor;
+import engine.World;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 
 public class Paddle extends Actor{
 
@@ -17,13 +19,24 @@ public class Paddle extends Actor{
 	 */
 	public Paddle()
 	{
-		String path = getClass().getClassLoader().getResource("resources/paddle.png").toString();
+		String path = getClass().getClassLoader().getResource("breakoutresources/images/paddle.png").toString();
 		Image img = new Image(path);
+		setImage(img);
 	}
 	
 	@Override
 	public void act(long now) {
-		// TODO Auto-generated method stub
+		World world = getWorld();
+		
+		if(world.isKeyPressed(KeyCode.LEFT)) 
+		{
+			setX(getX() - 5);
+		}
+		
+		if(world.isKeyPressed(KeyCode.RIGHT)) 
+		{
+			setX(getX() + 5);
+		}
 		
 	}
 	

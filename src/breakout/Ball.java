@@ -18,8 +18,9 @@ public class Ball extends Actor{
 	
 	public Ball()
 	{
-		String path = getClass().getClassLoader().getResource("resources/fireBall.png").toString();
+		String path = getClass().getClassLoader().getResource("breakoutresources/images/ball.png").toString();
 		Image img = new Image(path);
+		setImage(img);
 		
 		dx = 5;
 		dy = 5;
