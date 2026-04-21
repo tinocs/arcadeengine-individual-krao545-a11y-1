@@ -29,6 +29,7 @@ public class BallWorld extends World{
 		ball.setY(centerY);
 		add(ball);
 		
+		//BallWorld:
 		Paddle paddle = new Paddle();
 		
 		paddle.setX(getWidth() / 2 - 50);

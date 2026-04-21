@@ -43,7 +43,11 @@ public class Ball extends Actor{
 			dy = -dy;
 		}
 		
-	
+		Paddle paddle = getOneIntersectingObject(Paddle.class);
+		if(paddle != null) 
+		{
+			dy = -dy;
+		}
 	}
 
 }
