@@ -48,6 +48,24 @@ public class BallWorld extends World{
 			
 		});
 		
+		int rows = 3;
+		int cols = 7;
+		int brickWidth = 50;
+		int brickHeight = 20;
+		
+		for(int row = 0; row < rows; row++) 
+		{
+			for(int col = 0; col < cols; col++) 
+			{
+				Brick brick = new Brick();
+				
+				brick.setX(50 + col * brickWidth);
+				brick.setY(50 + col * brickHeight);
+				
+				add(brick);
+			}
+		}
+		
 	}
 
 	@Override
