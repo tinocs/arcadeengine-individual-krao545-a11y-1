@@ -39,8 +39,16 @@ public class Ball extends Actor{
 			dx = -dx;
 		}
 		
-		if(getY() <= 0 || getY() + getHeight() >= worldHeight) 
+		if(getY() <= 0) 
 		{
+			dy = -dy;
+		}
+		
+		if(getY() + getHeight() >= worldHeight) 
+		{
+			BallWorld world = (BallWorld) getWorld();
+			world.getScore().setValue(world.getScore().getValue() - 1000);
+			setY(worldHeight - getHeight());
 			dy = -dy;
 		}
 		
@@ -53,6 +61,8 @@ public class Ball extends Actor{
 		Brick brick = getOneIntersectingObject(Brick.class);
 		if(brick != null) 
 		{
+			BallWorld world = (BallWorld) getWorld();
+			world.getScore().setValue(world.getScore().getValue() + 100);
 			if(getX() >= brick.getX() && getX() <= brick.getX() + brick.getWidth()) 
 			{
 				dy = -dy;
