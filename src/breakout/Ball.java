@@ -29,6 +29,11 @@ public class Ball extends Actor{
 	@Override
 	public void act(long now) {
 		// TODO Auto-generated method stub
+		BallWorld world = (BallWorld) getWorld();
+		if(!world.isStarted()) 
+		{
+			return;
+		}
 		move(dx, dy);
 		
 		double worldWidth = getWorld().getWidth();
@@ -44,12 +49,10 @@ public class Ball extends Actor{
 			dy = -dy;
 		}
 		
-		if(getY() + getHeight() >= worldHeight) 
+		if(getY() + getHeight() >= worldHeight && dy > 0) 
 		{
-			BallWorld world = (BallWorld) getWorld();
-			world.getScore().setValue(world.getScore().getValue() - 1000);
-			setY(worldHeight - getHeight());
-			dy = -dy;
+			world.loseLife();
+			return;
 		}
 		
 		Paddle paddle = getOneIntersectingObject(Paddle.class);
@@ -61,7 +64,6 @@ public class Ball extends Actor{
 		Brick brick = getOneIntersectingObject(Brick.class);
 		if(brick != null) 
 		{
-			BallWorld world = (BallWorld) getWorld();
 			world.getScore().setValue(world.getScore().getValue() + 100);
 			if(getX() >= brick.getX() && getX() <= brick.getX() + brick.getWidth()) 
 			{
