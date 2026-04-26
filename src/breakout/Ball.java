@@ -30,10 +30,11 @@ public class Ball extends Actor{
 	public void act(long now) {
 		// TODO Auto-generated method stub
 		BallWorld world = (BallWorld) getWorld();
-		if(!world.isStarted()) 
+		if(world.isPaused()) 
 		{
 			return;
 		}
+		
 		move(dx, dy);
 		
 		double worldWidth = getWorld().getWidth();

@@ -12,13 +12,14 @@ import engine.World;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.scene.input.KeyCode;
 
 public class BallWorld extends World{
 
 	private Score score;
 	private int level = 1;
 	private int lives = 3;
-	private boolean started = false;
+	private boolean isPaused = true;
 	
 	private Lives livesDisplay; 
 	
@@ -66,7 +67,13 @@ public class BallWorld extends World{
 		
 		loadLevel(level);
 		
-		setOnMouseClicked(e -> started = true);
+		setOnKeyPressed(e ->
+		{
+			if(e.getCode() == KeyCode.SPACE) 
+			{
+				isPaused = false;
+			}
+		});
 	}
 	
 	public Score getScore() 
@@ -74,9 +81,14 @@ public class BallWorld extends World{
 		return score;
 	}
 	
-	public boolean isStarted() 
+	public boolean isPaused() 
 	{
-		return started;
+		return isPaused;
+	}
+	
+	public void setPaused(boolean value) 
+	{
+		isPaused = value;
 	}
 	
 	public void loseLife() 
@@ -97,7 +109,7 @@ public class BallWorld extends World{
 			stop();
 		}
 		resetBall();
-		started = false;
+		setPaused(true);
 	}
 
 	public void resetBall()
@@ -126,7 +138,7 @@ public class BallWorld extends World{
 			createGrid(5, 5);
 		}
 		
-		started = false;
+		setPaused(true);
 	}
 	
 	public void clearBricks() 
@@ -159,6 +171,11 @@ public class BallWorld extends World{
 	@Override
 	public void act(long now) {
 		// TODO Auto-generated method stub
+		if(isPaused()) 
+		{
+			return;
+		}
+		
 		if(getObjects(Brick.class).isEmpty()) 
 		{
 			level++;
