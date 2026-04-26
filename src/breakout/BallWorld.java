@@ -20,6 +20,8 @@ public class BallWorld extends World{
 	private int lives = 3;
 	private boolean started = false;
 	
+	private Lives livesDisplay; 
+	
 	public BallWorld() {
 		setPrefSize(600, 400);
 	}
@@ -57,6 +59,11 @@ public class BallWorld extends World{
 		score.setY(25);
 		getChildren().add(score);
 		
+		livesDisplay = new Lives();
+		livesDisplay.setX(500);
+		livesDisplay.setY(25);
+		getChildren().add(livesDisplay);
+		
 		loadLevel(level);
 		
 		setOnMouseClicked(e -> started = true);
@@ -75,6 +82,9 @@ public class BallWorld extends World{
 	public void loseLife() 
 	{
 		lives--;
+		
+		livesDisplay.setValue(lives);
+		
 		if(lives <= 0) 
 		{
 			Text message = new Text("GAME OVER");
