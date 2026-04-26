@@ -8,7 +8,9 @@
 package breakout;
 
 import engine.Actor;
+import engine.Sound;
 import engine.World;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -97,9 +99,15 @@ public class BallWorld extends World{
 		
 		livesDisplay.setValue(lives);
 		
+		Sound loseLifeSound = new Sound("ballbounceresources/lose_life.wav");
+		loseLifeSound.play();
+		
 		if(lives <= 0) 
 		{
-			Text message = new Text("GAME OVER");
+			Sound gameOverSound = new Sound("ballbounceresources/game_lost.wav");
+			gameOverSound.play();
+			
+			Text message = new Text("GAME OVER: \n  YOU LOST ");
 			message.setStyle("-fx-font-size: 40px");
 			message.setX(200);
 			message.setY(200);
@@ -168,6 +176,8 @@ public class BallWorld extends World{
 		}
 	}
 	
+	
+	
 	@Override
 	public void act(long now) {
 		// TODO Auto-generated method stub
@@ -182,7 +192,10 @@ public class BallWorld extends World{
 			resetBall();
 			if(level > 2) 
 			{
+				
 				stop();
+				Sound gameWonSound = new Sound("ballbounceresources/game_won.wav");
+				gameWonSound.play();
 				System.out.println("YOU WIN!! game over");
 				Breakout.showTitleScreen();
 			}
@@ -191,6 +204,8 @@ public class BallWorld extends World{
 				loadLevel(level);
 			}
 		}
+
 	}
 
 }
+

@@ -1,7 +1,10 @@
 package breakout;
 
 import engine.Actor;
+import engine.Sound;
+import javafx.animation.FadeTransition;
 import javafx.scene.image.Image;
+import javafx.util.Duration;
 /**
  * Kavita Rao
  * Period 1, APCS
@@ -43,11 +46,16 @@ public class Ball extends Actor{
 		if(getX() <= 0 || getX() + getWidth() >= worldWidth) 
 		{
 			dx = -dx;
+			Sound ballBounceSound = new Sound("ballbounceresources/ball_bounce.wav");
+			ballBounceSound.play();
+			
 		}
 		
 		if(getY() <= 0) 
 		{
 			dy = -dy;
+			Sound ballBounceSound = new Sound("ballbounceresources/ball_bounce.wav");
+			ballBounceSound.play();
 		}
 		
 		if(getY() + getHeight() >= worldHeight && dy > 0) 
@@ -80,7 +88,20 @@ public class Ball extends Actor{
 				dy = -dy;
 			}
 			
-			getWorld().remove(brick);
+			FadeTransition fade = new FadeTransition(Duration.millis(200), brick);
+			fade.setFromValue(1.0);
+			fade.setToValue(0.0);
+			
+			/*fade.setOnFinished(e ->
+			{
+				getWorld().remove(brick);
+			});
+			*/
+			
+			fade.play();
+
+			Sound brickHitSound = new Sound("ballbounceresources/brick_hit.wav");
+			brickHitSound.play();
 		}
 	}
 
