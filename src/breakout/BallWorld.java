@@ -22,6 +22,7 @@ public class BallWorld extends World{
 	private int level = 1;
 	private int lives = 3;
 	private boolean isPaused = true;
+	private boolean isGameOver = false;
 	
 	private Lives livesDisplay; 
 	
@@ -73,7 +74,14 @@ public class BallWorld extends World{
 		{
 			if(e.getCode() == KeyCode.SPACE) 
 			{
-				isPaused = false;
+				if(isGameOver) 
+				{
+					Breakout.showTitleScreen();
+				}
+				else 
+				{
+					setPaused(false);
+				}
 			}
 		});
 	}
@@ -107,14 +115,16 @@ public class BallWorld extends World{
 			Sound gameOverSound = new Sound("ballbounceresources/game_lost.wav");
 			gameOverSound.play();
 			
-			Text message = new Text("GAME OVER: \n  YOU LOST ");
+			Text message = new Text("GAME OVER: \n  YOU LOST \nPress SPACE ");
 			message.setStyle("-fx-font-size: 40px");
 			message.setX(200);
 			message.setY(200);
 			getChildren().add(message);
 			
-			setOnMouseClicked(e -> Breakout.showTitleScreen());
-			stop();
+			setPaused(true);
+			isGameOver = true;
+			
+			return;
 		}
 		resetBall();
 		setPaused(true);
@@ -193,11 +203,17 @@ public class BallWorld extends World{
 			if(level > 2) 
 			{
 				
-				stop();
+				
 				Sound gameWonSound = new Sound("ballbounceresources/game_won.wav");
 				gameWonSound.play();
-				System.out.println("YOU WIN!! game over");
-				Breakout.showTitleScreen();
+				Text win = new Text("YOU WIN!! \nPress SPACE");
+				win.setStyle("-fx-font-size: 40px");
+				win.setX(200);
+				win.setY(200);
+				getChildren().add(win);
+				
+				setPaused(true);
+				isGameOver = true;
 			}
 			else 
 			{

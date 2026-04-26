@@ -68,6 +68,8 @@ public class Ball extends Actor{
 		if(paddle != null) 
 		{
 			dy = -dy;
+			Sound ballBounceSound = new Sound("ballbounceresources/ball_bounce.wav");
+			ballBounceSound.play();
 		}
 		
 		Brick brick = getOneIntersectingObject(Brick.class);
@@ -92,11 +94,10 @@ public class Ball extends Actor{
 			fade.setFromValue(1.0);
 			fade.setToValue(0.0);
 			
-			/*fade.setOnFinished(e ->
+			fade.setOnFinished(e ->
 			{
 				getWorld().remove(brick);
 			});
-			*/
 			
 			fade.play();
 
