@@ -14,6 +14,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 
 public class BallWorld extends World{
@@ -23,16 +25,23 @@ public class BallWorld extends World{
 	private int lives = 3;
 	private boolean isPaused = true;
 	private boolean isGameOver = false;
-	
 	private Lives livesDisplay; 
+	private ImageView bgView;
 	
 	public BallWorld() {
 		setPrefSize(600, 400);
+		
+		Image bg = new Image(getClass().getClassLoader().getResource("breakoutresources/images/background.png").toString());
+		bgView = new ImageView(bg);
+		bgView.setX((getPrefWidth() - bg.getWidth())/2);
+		bgView.setY(-10);
+		getChildren().add(0, bgView);
 	}
-
+	
 	@Override
 	public void onDimensionsInitialized() {
 		// TODO Auto-generated method stub
+	
 		Ball ball = new Ball();
 		
 		double centerX = getWidth() / 2;
@@ -149,11 +158,11 @@ public class BallWorld extends World{
 		
 		if(level == 1) 
 		{
-			createGrid(3, 7);
+			createGrid(3, 7); //3,7
 		}
 		else if(level == 2) 
 		{
-			createGrid(5, 5);
+			createGrid(5, 5); //5,5
 		}
 		
 		setPaused(true);
@@ -185,6 +194,19 @@ public class BallWorld extends World{
 			}
 		}
 	}
+	
+	public void scroll(double dx) 
+	{
+		double newX = bgView.getX() + dx;
+		double minX = getWidth() - bgView.getImage().getWidth();
+		double maxX = 0;
+		if(newX >= minX && newX <= maxX) 
+		{
+			bgView.setX(newX);
+			
+		}
+	}
+
 	
 	
 	

@@ -9,12 +9,14 @@ package breakout;
 import engine.Actor;
 import javafx.scene.image.Image;
 
-public class Brick extends Actor{
-
+public class Brick extends Actor
+{
+	public boolean isHit = false;
 	public Brick() {
 		String path = getClass().getClassLoader().getResource("breakoutresources/images/brick2.png").toString();
 		Image img = new Image(path);
 		setImage(img);
+	
 	}
 
 	@Override

@@ -31,12 +31,15 @@ public class Paddle extends Actor{
 		if(world.isKeyPressed(KeyCode.LEFT)) 
 		{
 			setX(getX() - 5);
+			((BallWorld) world).scroll(-5);
 		}
 		
 		if(world.isKeyPressed(KeyCode.RIGHT)) 
 		{
 			setX(getX() + 5);
+			((BallWorld) world).scroll(5);
 		}
+	
 		
 	}
 	
